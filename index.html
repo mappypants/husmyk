@@ -497,6 +497,80 @@ body.light .theme-icon{
   border-radius:0!important;background:transparent!important}
 #app-logo-img{border-radius:0!important;background:transparent!important;
   image-rendering:auto}
+
+/* ── FURNITURE CARDS ──────────────────────────────────────────── */
+.furn-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.09);border-radius:var(--r-xs);margin-bottom:0.22rem;overflow:hidden}
+.furn-card.open .furn-body{display:block}
+.furn-card-hdr{display:flex;align-items:center;gap:0.45rem;padding:0.42rem 0.65rem;cursor:pointer}
+.furn-card-hdr:hover{background:rgba(255,255,255,0.04)}
+.furn-card-label{flex:1;min-width:0}
+.furn-name{display:block;font-size:var(--fs-sm);font-weight:700;color:var(--ink)}
+.furn-type{font-size:var(--fs-xs);color:var(--ink3)}
+.furn-arr{color:var(--ink3);font-size:0.75rem;transition:transform 0.18s;flex-shrink:0}
+.furn-card.open .furn-arr{transform:rotate(90deg)}
+.furn-edit-btn{background:none;border:none;cursor:pointer;color:var(--ink3);font-size:0.7rem;padding:0.1rem 0.25rem;flex-shrink:0}
+.furn-body{display:none;border-top:1px solid rgba(255,255,255,0.06);padding:0.35rem 0.65rem}
+/* Item list inside furniture */
+.furn-items-list{padding:0.1rem 0}
+.furn-item-row{display:flex;align-items:baseline;gap:0.4rem;padding:0.22rem 0;border-bottom:1px solid rgba(255,255,255,0.05)}
+.furn-item-row:last-child{border-bottom:none}
+.furn-item-name{font-size:var(--fs-sm);font-weight:600;color:var(--ink);flex:1}
+.furn-item-loc{font-size:var(--fs-sm);color:var(--ink3)}
+.furn-item-empty{font-size:var(--fs-xs);color:var(--ink3);font-style:italic;padding:0.2rem 0}
+/* Light theme */
+body.light .furn-card{background:rgba(255,255,255,0.55);border-color:rgba(26,48,48,0.1)}
+body.light .furn-body{border-top-color:rgba(26,48,48,0.07)}
+body.light .furn-item-row{border-bottom-color:rgba(26,48,48,0.07)}
+/* Fra liste mode */
+.fra-liste-grid{display:flex;flex-direction:column;gap:0.2rem;max-height:260px;overflow-y:auto;margin-top:0.3rem}
+.fl-item{display:flex;align-items:center;gap:0.5rem;padding:0.38rem 0.6rem;border:1px solid rgba(255,255,255,0.1);border-radius:var(--r-xs);cursor:pointer;transition:all 0.12s;background:rgba(255,255,255,0.04)}
+.fl-item:hover{background:rgba(255,255,255,0.08)}
+.fl-item.selected{border-color:var(--teal-mid);background:var(--glass-teal)}
+.fl-item-name{flex:1;font-size:var(--fs-sm);font-weight:600;color:var(--ink)}
+.fl-item-meta{display:flex;align-items:center;gap:0.25rem;font-size:var(--fs-xs);color:var(--ink3)}
+.fl-item-meta svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0}
+.fl-add-btn{width:100%;margin-top:0.5rem;padding:0.5rem;background:var(--teal-mid);color:#fff;border:none;border-radius:var(--r-pill);font-size:var(--fs-sm);font-weight:800;cursor:pointer;display:none}
+.fl-add-btn.show{display:block}
+/* Conflict popup */
+.conflict-popup{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:linear-gradient(160deg,#1E4442,#112C2C);border:1px solid var(--glass-teal-b);border-radius:var(--r);padding:1.1rem 1.2rem;max-width:260px;width:88%;text-align:center;z-index:400;box-shadow:0 8px 32px rgba(0,0,0,0.5);animation:su 0.2s ease}
+.conflict-popup h4{font-size:var(--fs);font-weight:900;color:var(--ink);margin-bottom:0.35rem}
+.conflict-popup p{font-size:var(--fs-sm);color:var(--ink2);margin-bottom:0.85rem;line-height:1.5}
+.conflict-popup-btns{display:flex;gap:0.4rem}
+.conflict-popup-btns button{flex:1;padding:0.55rem;border-radius:var(--r-pill);border:none;font-size:var(--fs-sm);font-weight:700;cursor:pointer}
+.conflict-ok{background:var(--teal-mid);color:#fff}
+.conflict-move{background:rgba(255,255,255,0.1);color:var(--ink2)}
+
+/* ── SWIPE-TO-DELETE ─────────────────────────────────────────── */
+.swipe-row{position:relative;overflow:hidden;border-radius:var(--r-xs)}
+.swipe-row .furn-item-row{position:relative;z-index:1;will-change:transform;touch-action:pan-y;background:transparent}
+.swipe-row:last-child .furn-item-row{border-bottom:none}
+.swipe-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:flex-end;padding-right:1rem;background:var(--danger);border-radius:var(--r-xs)}
+.swipe-bg-label{font-size:10px;font-weight:800;color:#fff;letter-spacing:0.06em;text-transform:uppercase}
+.irow-edit{background:none;border:none;cursor:pointer;color:rgba(255,255,255,0.28);font-size:0.78rem;padding:0.2rem 0.25rem;transition:color 0.15s}
+.irow-edit:hover{color:var(--teal-mid)}
+body.light .irow-edit{color:rgba(26,48,48,0.25)}
+
+/* ── CARD BODY OPEN ANIMATION ────────────────────────────────── */
+.card.open .cbody{animation:cbody-in 0.18s ease}
+@keyframes cbody-in{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── TIPS TAB ────────────────────────────────────────────────── */
+.tips-filter{display:flex;gap:0.25rem;flex-wrap:wrap;padding:0.35rem 0.85rem 0.1rem;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.tips-filter::-webkit-scrollbar{display:none}
+.tip-section{padding:0 0.85rem 0.1rem}
+.tip-cat-hdr{font-size:10px;font-weight:800;color:var(--ink3);text-transform:uppercase;letter-spacing:0.09em;padding:0.55rem 0 0.25rem;display:flex;align-items:center;gap:0.35rem}
+.tip-cat-icon{font-size:0.9rem}
+.tip-card{background:var(--glass);border:1px solid var(--glass-b);border-radius:var(--r-sm);padding:0.5rem 0.65rem;margin-bottom:0.2rem;display:flex;align-items:flex-start;gap:0.5rem;backdrop-filter:blur(8px);transition:background 0.15s}
+.tip-card.fav{border-color:rgba(232,168,87,0.4);background:var(--glass-amber)}
+.tip-emoji{font-size:1.1rem;flex-shrink:0;line-height:1.5;margin-top:0.05rem}
+.tip-body{flex:1;min-width:0}
+.tip-title{font-size:12.5px;font-weight:600;color:var(--ink);line-height:1.4;margin-bottom:0.12rem}
+.tip-src{font-size:9.5px;color:var(--ink3);font-weight:700;text-transform:uppercase;letter-spacing:0.05em}
+.tip-fav-btn{background:none;border:none;cursor:pointer;color:var(--ink3);font-size:1rem;padding:0.1rem 0.15rem;flex-shrink:0;line-height:1;transition:transform 0.15s,color 0.15s;-webkit-tap-highlight-color:transparent}
+.tip-fav-btn.active{color:var(--amber)}
+.tip-fav-btn:active{transform:scale(1.35)}
+body.light .tip-card{background:rgba(255,255,255,0.65);border-color:rgba(26,48,48,0.12)}
+body.light .tip-card.fav{background:rgba(196,131,42,0.08);border-color:rgba(196,131,42,0.28)}
 </style>
 </head>
 <body class="cozy">
@@ -563,11 +637,16 @@ body.light .theme-icon{
       <div class="sec" style="padding-bottom:var(--p-sm)"><div class="sh"><span class="st">Ukesplan</span></div></div>
       <div class="wrap" id="schedwrap"></div>
     </div>
+    <div id="t-tips" style="display:none">
+      <div class="tips-filter" id="tips-filter"></div>
+      <div id="tipswrap" style="padding-bottom:1rem"></div>
+    </div>
   </div>
   <nav class="bnav">
     <button class="nb active" id="n-home" onclick="switchTab('home')"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Hjem<div class="nb-dot"></div></button>
     <button class="nb" id="n-routines" onclick="switchTab('routines')"><svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>Rutiner<div class="nb-dot"></div></button>
     <button class="nb" id="n-schedule" onclick="switchTab('schedule')"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Uke<div class="nb-dot"></div></button>
+    <button class="nb" id="n-tips" onclick="switchTab('tips')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Tips<div class="nb-dot"></div></button>
   </nav>
 </div>
 
@@ -621,8 +700,13 @@ body.light .theme-icon{
 <div class="md">
   <div class="mh"></div><div class="mt">Legg til ting</div>
   <div style="display:flex;gap:0.35rem;margin-bottom:0.85rem">
-    <button class="chip a" onclick="setItemMode('quick',this)">Rask</button>
-    <button class="chip" onclick="setItemMode('detail',this)">Detaljert</button>
+    <button class="chip a" id="imode-quick" onclick="setItemMode('quick',this)">Rask</button>
+    <button class="chip" id="imode-detail" onclick="setItemMode('detail',this)">Detaljert</button>
+    <button class="chip" id="imode-liste" onclick="setItemMode('liste',this)">Fra liste</button>
+  </div>
+  <div id="liste-fields" style="display:none">
+    <div class="fra-liste-grid" id="fra-liste-grid"></div>
+    <button class="fl-add-btn" id="fl-add-btn" onclick="addFromList()">Legg til valgte</button>
   </div>
   <div class="fg"><label class="fl">Navn</label><input class="fi" type="text" id="iname" placeholder="f.eks. Pass, Nøkkelknippe, Lader" maxlength="60"></div>
   <div id="dfields" style="display:none">
@@ -631,11 +715,22 @@ body.light .theme-icon{
     <div class="fg"><label class="fl">Plassering (valgfritt)</label><input class="fi" type="text" id="iloc" placeholder="f.eks. Øverste skuff" maxlength="80"></div>
     <div class="fg"><label class="fl">Notat</label><input class="fi" type="text" id="inote" placeholder="Valgfritt" maxlength="120"></div>
   </div>
-  <div class="mac">
-    <button class="bcan" onclick="closeItemModal()">Avbryt</button>
+  <div class="mac" id="item-mac">
+    <button class="bcan" onclick="closeItemModal()">Ferdig</button>
     <button class="bsav" id="item-save-btn" onclick="saveItemAnimated(this)">Lagre</button>
   </div>
 </div>
+</div>
+<!-- CONFLICT POPUP -->
+<div id="conflict-overlay" style="display:none;position:absolute;inset:0;background:rgba(5,12,12,0.75);z-index:400;backdrop-filter:blur(8px)">
+  <div class="conflict-popup">
+    <h4 id="conflict-title">Allerede registrert</h4>
+    <p id="conflict-msg"></p>
+    <div class="conflict-popup-btns">
+      <button class="conflict-move" onclick="conflictMove()">Flytt hit</button>
+      <button class="conflict-ok" onclick="conflictDismiss()">OK</button>
+    </div>
+  </div>
 </div>
 
 <!-- ADD ROOM MODAL -->
@@ -1210,11 +1305,12 @@ function finishSetup(){
 }
 function switchTab(t){
   curTab=t;
-  ['home','routines','schedule'].forEach(id=>{const el=document.getElementById('t-'+id);if(el)el.style.display=id===t?'block':'none';});
+  ['home','routines','schedule','tips'].forEach(id=>{const el=document.getElementById('t-'+id);if(el)el.style.display=id===t?'block':'none';});
   document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
   const nb=document.getElementById('n-'+t);if(nb)nb.classList.add('active');
   if(t==='routines')renderRoutines();
   if(t==='schedule')renderSchedule();
+  if(t==='tips')renderTips();
   clearSearch();
 }
 function renderApp(){renderStats();renderRooms();renderRoomSelect();renderFmRoomSelect();}
@@ -1301,14 +1397,14 @@ function renderRooms(){
         </div>
       </div>
       <div class="cbody">
-        ${renderFurns(furns,room.name)}
-        ${items.length?'<div style="margin-top:0.3rem">'+items.map(it=>`<div class="irow"><div><div class="in">${it.name}</div>${it.furn||it.loc?`<div class="il">${it.furn?it.furn+': ':''} ${it.loc||''}</div>`:''}</div><button class="idel" onclick="delItem('${it.id}')">✕</button></div>`).join('')+'</div>':'<div class="empty-r">Ingen ting her ennå.</div>'}
+        ${renderFurnsWithItems(furns,room.name,items)}
         <button class="addbtn" onclick="openItemModalRoom('${room.name}')"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Legg til ting</button>
         <button class="addbtn" style="margin-top:0.25rem" onclick="openFurnModal('${room.name}')"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>Legg til oppbevaringssted</button>
       </div>
     </div>`;
   }).join('');
   attachDragHandlers();
+  attachSwipeHandlers();
 }
 
 function renderFurns(furns,room){
@@ -1337,6 +1433,76 @@ function renderFurns(furns,room){
     </div>`;
   }).join('');
 }
+function renderFurnsWithItems(furns,room,items){
+  var sorted=[].concat(items).sort(function(a,b){return a.name.localeCompare(b.name,'no');});
+
+  function itemRow(it){
+    var loc=it.loc?'<span class="furn-item-loc">'+it.loc+'</span>':'';
+    return '<div class="swipe-row" data-item-id="'+it.id+'">'
+      +'<div class="swipe-bg"><span class="swipe-bg-label">Slett</span></div>'
+      +'<div class="furn-item-row"><span class="furn-item-name">'+it.name+'</span>'+loc
+      +'<button class="irow-edit" title="Rediger" onclick="openEditItemOverlay(\''+it.id+'\')">✎</button>'
+      +'<button class="idel" title="Slett" onclick="delItem(\''+it.id+'\')">✕</button>'
+      +'</div></div>';
+  }
+
+  var html='';
+  furns.forEach(function(f,fi){
+    var fid='f-'+room.replace(/[^a-z0-9]/gi,'-')+'-'+fi;
+    var isDropoff=f.type==='dropoff';
+    var furnItems=sorted.filter(function(it){return it.furn===f.name;});
+    var innerContent='';
+
+    if(isDropoff){
+      var items2=f.items||[];
+      var tags=items2.map(function(k,i){
+        return '<span class="zone-tag">'+k+'<button onclick="removeDropoffItem(\''+room+'\','+fi+','+i+')">✕</button></span>';
+      }).join('');
+      innerContent='<div class="zone-card">'
+        +'<div class="zc-title">'+f.name+'</div>'
+        +'<div class="zone-items">'+tags+'</div>'
+        +'<div class="zone-add"><input class="zone-input" type="text" id="di-'+fi+'" placeholder="Legg til..." maxlength="40" onkeydown="if(event.key===\'Enter\')addDropoffItem(\''+room+'\','+fi+',this)">'
+        +'<button class="zone-btn" onclick="addDropoffItem(\''+room+'\','+fi+',document.getElementById(\'di-'+fi+'\'))">+</button></div>'
+        +'</div>';
+    } else {
+      var itemRows=furnItems.length
+        ? furnItems.map(itemRow).join('')
+        : '<div class="furn-item-empty">Ingen ting her ennå</div>';
+      var typeInner='';
+      if(f.type==='kommode'||f.type==='skrivebord') typeInner=renderDrawerGrid(f,room,fi);
+      else if(f.type!=='annet'&&f.type!=='dropoff') typeInner=renderShelfList(f,room,fi,true);
+      innerContent=(typeInner?typeInner:'')+'<div class="furn-items-list">'+itemRows+'</div>';
+    }
+
+    var iconName=f.icon||(isDropoff?'dropoff':getFurnIcon(f.type));
+    var countLabel=isDropoff?'Dropoff-sone':(FURN_LABELS[f.type]||f.type)+' · '+furnItems.length+' ting';
+    html+='<div class="furn-card" id="'+fid+'">'
+      +'<div class="furn-card-hdr" onclick="toggleFurnBody(\''+fid+'\')">'
+      +'<div class="sub-pill-icon">'+getIcon(iconName,16,'var(--ink2)')+'</div>'
+      +'<div class="furn-card-label"><span class="furn-name">'+f.name+'</span><span class="furn-type">'+countLabel+'</span></div>'
+      +'<button onclick="event.stopPropagation();openEditFurn(\''+room+'\','+fi+')" class="furn-edit-btn">✎</button>'
+      +'<span class="furn-arr">›</span>'
+      +'</div>'
+      +'<div class="furn-body">'+innerContent+'</div>'
+      +'</div>';
+  });
+
+  var directItems=sorted.filter(function(it){return !it.furn;});
+  if(directItems.length){
+    html+='<div class="furn-card furn-card-direct">'
+      +'<div class="furn-card-hdr" onclick="this.parentElement.classList.toggle(\'open\')">'
+      +'<div class="sub-pill-icon">'+getIcon('home',16,'var(--ink2)')+'</div>'
+      +'<div class="furn-card-label"><span class="furn-name">Direkte i rommet</span><span class="furn-type">'+directItems.length+' ting</span></div>'
+      +'<span class="furn-arr">›</span>'
+      +'</div>'
+      +'<div class="furn-body"><div class="furn-items-list">'+directItems.map(itemRow).join('')+'</div></div>'
+      +'</div>';
+  } else if(!furns.length){
+    html+='<div class="empty-r">Ingen ting her ennå.</div>';
+  }
+  return html;
+}
+
 function toggleFurnBody(fid){
   const b=document.getElementById(fid+'-body');const a=document.getElementById(fid+'-arr');
   if(!b)return;const isOpen=b.style.display==='none'||!b.style.display;
@@ -1496,10 +1662,115 @@ function saveFurn(){
 function renderRoomSelect(){const s=document.getElementById('iroom');s.innerHTML='<option value="">Ikke angitt</option>'+S.rooms.map(r=>`<option value="${r.name}">${r.name}</option>`).join('');}
 function updateFurnSelect(room){const s=document.getElementById('ifurn');if(!s)return;const furns=(S.furniture[room]||[]).filter(f=>f.type!=='dropoff');s.innerHTML='<option value="">Direkte i rommet</option>'+furns.map(f=>`<option value="${f.name}">${f.name}</option>`).join('');}
 function openItemModal(){renderRoomSelect();updateFurnSelect('');document.getElementById('im').classList.add('open');document.getElementById('iname').focus();}
-function openItemModalRoom(room){renderRoomSelect();document.getElementById('iroom').value=room;updateFurnSelect(room);document.getElementById('dfields').style.display='block';document.querySelectorAll('#im .chip').forEach((b,i)=>b.classList.toggle('a',i===1));document.getElementById('im').classList.add('open');document.getElementById('iname').focus();}
+function openItemModalRoom(room){
+  fraListeTargetRoom=room;
+  renderRoomSelect();
+  document.getElementById('iroom').value=room;
+  updateFurnSelect(room);
+  // Reset to Rask mode
+  document.getElementById('dfields').style.display='none';
+  document.getElementById('liste-fields').style.display='none';
+  document.getElementById('iname').style.display='';
+  document.getElementById('item-mac').style.display='flex';
+  const fg=document.querySelector('#im .fg');if(fg)fg.style.display='block';
+  document.querySelectorAll('#im .chip').forEach((b,i)=>b.classList.toggle('a',i===0));
+  document.getElementById('im').classList.add('open');
+  document.getElementById('iname').focus();
+}
 function closeItemModal(){document.getElementById('im').classList.remove('open');['iname','iloc','inote'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});document.getElementById('item-save-btn').style.background='';document.getElementById('item-save-btn').textContent='Lagre';}
 
-function setItemMode(m,btn){document.querySelectorAll('#im .chip').forEach(b=>b.classList.remove('a'));btn.classList.add('a');document.getElementById('dfields').style.display=m==='detail'?'block':'none';}
+function setItemMode(m,btn){
+  document.querySelectorAll('#im .chip').forEach(b=>b.classList.remove('a'));
+  btn.classList.add('a');
+  document.getElementById('dfields').style.display=m==='detail'?'block':'none';
+  document.getElementById('liste-fields').style.display=m==='liste'?'block':'none';
+  document.getElementById('iname').style.display=m==='liste'?'none':'';
+  document.querySelector('#im .fl[for="iname"]') && (document.querySelector('#im .fl[for="iname"]').style.display=m==='liste'?'none':'');
+  document.getElementById('item-mac').style.display=m==='liste'?'none':'flex';
+  const fg=document.querySelector('#im .fg');if(fg)fg.style.display=m==='liste'?'none':'block';
+  if(m==='liste') renderFromList();
+}
+
+let fraListeSelected=new Set();
+let fraListeTargetRoom='';
+
+function renderFromList(){
+  fraListeSelected=new Set();
+  const btn=document.getElementById('fl-add-btn');
+  if(btn)btn.classList.remove('show');
+  const grid=document.getElementById('fra-liste-grid');
+  if(!grid)return;
+  const all=[...S.items].sort((a,b)=>a.name.localeCompare(b.name,'no'));
+  if(!all.length){
+    grid.innerHTML='<div style="color:var(--ink3);font-size:var(--fs-xs);padding:0.5rem">Ingen ting lagt til ennå.</div>';
+    return;
+  }
+  grid.innerHTML=all.map(it=>{
+    const hasRoom=it.room&&it.room!=='';
+    const hasFurn=it.furn&&it.furn!=='';
+    let meta='';
+    if(hasRoom||hasFurn){
+      meta='<span class="fl-item-meta">';
+      if(hasRoom) meta+='<svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>'+it.room+' ';
+      if(hasFurn) meta+='<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>'+it.furn;
+      meta+='</span>';
+    }
+    const safeId=it.id;
+    const safeRoom=(it.room||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+    const safeFurn=(it.furn||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+    return '<div class="fl-item" data-id="'+safeId+'" onclick="toggleFraListe(\''+safeId+'\',\''+safeRoom+'\',\''+safeFurn+'\')">'
+      +'<span class="fl-item-name">'+it.name+'</span>'+meta+'</div>';
+  }).join('');
+}
+
+
+function toggleFraListe(id,existRoom,existFurn){
+  // Check conflict
+  const targetRoom=fraListeTargetRoom||document.getElementById('iroom')?.value||'';
+  const it=S.items.find(i=>i.id===id);
+  if(!it)return;
+  if(existRoom&&existRoom!==''&&!fraListeSelected.has(id)){
+    // Show conflict popup
+    document.getElementById('conflict-title').textContent='Allerede registrert';
+    document.getElementById('conflict-msg').textContent=`«${it.name}» ligger allerede i ${existRoom}${existFurn?' ('+existFurn+')':''}.`;
+    window._conflictId=id;window._conflictTargetRoom=targetRoom;
+    document.getElementById('conflict-overlay').style.display='flex';
+    document.getElementById('conflict-overlay').style.alignItems='center';
+    document.getElementById('conflict-overlay').style.justifyContent='center';
+    return;
+  }
+  const el=document.querySelector(`.fl-item[data-id="${id}"]`);
+  if(fraListeSelected.has(id)){fraListeSelected.delete(id);el?.classList.remove('selected');}
+  else{fraListeSelected.add(id);el?.classList.add('selected');}
+  document.getElementById('fl-add-btn').classList.toggle('show',fraListeSelected.size>0);
+  document.getElementById('fl-add-btn').textContent=`Legg til ${fraListeSelected.size} valgte`;
+}
+
+function conflictDismiss(){document.getElementById('conflict-overlay').style.display='none';}
+function conflictMove(){
+  const id=window._conflictId;const room=window._conflictTargetRoom;
+  const it=S.items.find(i=>i.id===id);
+  if(it&&room){it.room=room;it.furn='';save();renderApp();}
+  document.getElementById('conflict-overlay').style.display='none';
+  // Now select it
+  const el=document.querySelector(`.fl-item[data-id="${id}"]`);
+  fraListeSelected.add(id);el?.classList.add('selected');
+  document.getElementById('fl-add-btn').classList.add('show');
+  document.getElementById('fl-add-btn').textContent=`Legg til ${fraListeSelected.size} valgte`;
+}
+
+function addFromList(){
+  const targetRoom=fraListeTargetRoom||document.getElementById('iroom')?.value||'';
+  fraListeSelected.forEach(id=>{
+    const it=S.items.find(i=>i.id===id);
+    if(it){it.room=targetRoom;it.furn='';}
+  });
+  save();renderApp();
+  if(targetRoom) document.getElementById('rc-'+targetRoom.replace(/[^a-z0-9]/gi,'-'))?.classList.add('open');
+  toast(fraListeSelected.size+' ting lagt til');
+  fraListeSelected=new Set();
+  renderFromList();
+}
 
 function saveItemAnimated(btn){
   const name=document.getElementById('iname').value.trim();if(!name){toast('Skriv inn et navn');return;}
@@ -1552,7 +1823,7 @@ function renderRoutines(){
         <div class="card-hdr" onclick="toggleCard('rt-${rt.id}')">
           <div class="cl"><div class="ci" style="background:${rt.col}"><svg viewBox="0 0 24 24" stroke="white" fill="none" stroke-width="1.8" stroke-linecap="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
           <div><div class="cn">${rt.name}</div><div class="cm">${done}/${total} fullført</div></div></div>
-          <div style="display:flex;align-items:center;gap:0.3rem">${rt.custom?`<button onclick="event.stopPropagation();openEditRoutine('${rt.id}')" style="background:none;border:none;cursor:pointer;color:var(--ink3);font-size:0.7rem;padding:0.1rem 0.3rem">Rediger</button><button onclick="event.stopPropagation();delRoutine(${ri})" style="background:none;border:none;cursor:pointer;color:#C8D8D8;font-size:0.75rem">✕</button>`:''}<span class="carr">›</span></div>
+          <div style="display:flex;align-items:center;gap:0.3rem"><button onclick="event.stopPropagation();openEditRoutine('${rt.id}')" style="background:none;border:none;cursor:pointer;color:var(--ink3);font-size:0.7rem;padding:0.1rem 0.3rem">Rediger</button>${rt.custom?'<button onclick="event.stopPropagation();delRoutine('+ri+')" style="background:none;border:none;cursor:pointer;color:#C8D8D8;font-size:0.75rem">✕</button>':''}<span class="carr">›</span></div>
         </div>
         <div class="cbody">
           ${(prog.checkItems||[]).map((c,ci)=>`<div class="kl-item ${c.done?'kl-done':''}"><div class="kl-cb" onclick="toggleCheckItem('${rt.id}',${ci})"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="kl-text">${c.text}</div></div>`).join('')}
@@ -1859,7 +2130,7 @@ let schedDayKey='';
 function openSchedOverlay(key,label){
   schedDayKey=key;curSchedSel=new Set(S.schedule[key]||[]);
   document.getElementById('sched-day-title').textContent=label;
-  document.getElementById('sched-options').innerHTML=`<div class="sched-group-title" style="margin-bottom:0.35rem">Rutiner</div>${S.routines.map(rt=>{const sel=curSchedSel.has(rt.name);return`<div class="sched-opt ${sel?'sel':''}" onclick="toggleSchedOpt('${rt.name}',this)"><div><div class="sched-opt-name">${rt.name}</div><div class="sched-opt-meta">${(rt.steps?.length||rt.checkItems?.length||0)} steg · ${rt.time} min</div></div><div class="sched-chk"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div>`;}).join('')}`;
+  document.getElementById('sched-options').innerHTML='<div class="sched-group-title" style="margin-bottom:0.35rem">Rutiner</div>'+S.routines.map(rt=>{const sel=curSchedSel.has(rt.name);return'<div class="sched-opt '+(sel?'sel':'')+'" onclick="toggleSchedOpt(\''+rt.name+'\',this)"><div><div class="sched-opt-name">'+rt.name+'</div><div class="sched-opt-meta">'+(rt.steps?.length||rt.checkItems?.length||0)+' steg · '+rt.time+' min</div></div><div class="sched-chk"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div></div>';}).join('');
   document.getElementById('sched-mo').classList.add('open');
 }
 function toggleSchedOpt(name,el){curSchedSel.has(name)?curSchedSel.delete(name):curSchedSel.add(name);el.classList.toggle('sel',curSchedSel.has(name));el.querySelector('.sched-chk svg').style.opacity=curSchedSel.has(name)?'1':'0';}
@@ -1946,6 +2217,115 @@ function removeDropoffItem(room,fi,i){
   if(!f||!f.items)return;
   f.items.splice(i,1);
   save();renderFurns();
+}
+
+// ── SWIPE TO DELETE ───────────────────────────────────────────
+function attachSwipeHandlers(){
+  document.querySelectorAll('.swipe-row').forEach(row=>{
+    if(row._sw)return;row._sw=true;
+    const inner=row.querySelector('.furn-item-row');
+    if(!inner)return;
+    let sx=0,sy=0,dx=0,vert=false;
+    row.addEventListener('touchstart',e=>{
+      sx=e.touches[0].clientX;sy=e.touches[0].clientY;dx=0;vert=false;
+      inner.style.transition='none';
+    },{passive:true});
+    row.addEventListener('touchmove',e=>{
+      const cx=e.touches[0].clientX,cy=e.touches[0].clientY;
+      if(!vert&&Math.abs(cy-sy)>Math.abs(cx-sx)){vert=true;}
+      if(vert)return;
+      dx=cx-sx;
+      if(dx<0)inner.style.transform='translateX('+Math.max(dx,-80)+'px)';
+      else inner.style.transform='';
+    },{passive:true});
+    row.addEventListener('touchend',()=>{
+      inner.style.transition='transform 0.22s cubic-bezier(.25,.46,.45,.94)';
+      if(dx<-60){
+        const id=row.dataset.itemId;
+        inner.style.transform='translateX(-110%)';
+        setTimeout(()=>delItem(id),200);
+      } else inner.style.transform='';
+      dx=0;
+    });
+  });
+}
+
+// ── TIPS TAB ──────────────────────────────────────────────────
+const TIPS=[
+  {cat:'Kategorisering',icon:'📦',items:[
+    {e:'🗂️',t:'Rydd etter kategori, ikke rom — samle ALT av én type før du begynner',s:'KonMari'},
+    {e:'🔤',t:'Rekkefølgen som fungerer: klær → bøker → papir → diverse → minner',s:'KonMari'},
+    {e:'✨',t:'Spør «gir dette meg glede?» om hvert objekt før du bestemmer deg',s:'KonMari'},
+    {e:'📤',t:'Tøm hyllen helt ut før du organiserer — se hva du faktisk har',s:'The Home Edit'},
+    {e:'🌈',t:'Fargekod etter regnbuens rekkefølge (ROYGBIV) — skaper automatisk system',s:'The Home Edit'},
+  ]},
+  {cat:'Oppbevaring',icon:'🗄️',items:[
+    {e:'📏',t:'Fyll aldri bokser til randen — la det alltid være litt luft igjen',s:'The Home Edit'},
+    {e:'🏷️',t:'Merk absolutt alt, også ugjennomskinnelige bokser og skuffer',s:'The Home Edit'},
+    {e:'🚪',t:'Bruk vegger og innerdører som skjult lagringsplass',s:'The Home Edit'},
+    {e:'🎁',t:'Skotøyesker og gaveesker er gratis og perfekte skuffedelere',s:'KonMari'},
+    {e:'👕',t:'Fold klær vertikalt slik at de står oppreist i skuffen — se alt på én gang',s:'KonMari'},
+    {e:'👗',t:'Heng klær venstre til høyre, lengste til korteste — roligere å se på',s:'KonMari'},
+    {e:'💸',t:'Kjøp aldri oppbevaringsbokser FØR du har ryddet ut — du vet ikke hva du trenger',s:'KonMari'},
+  ]},
+  {cat:'Daglige vaner',icon:'⚡',items:[
+    {e:'🌙',t:'5-minutters rydderunde før du legger deg — neste dag starter rent',s:'Reddit'},
+    {e:'⏱️',t:'Sett en 15-minutters timer og fokuser på én ting av gangen',s:'Reddit / TikTok'},
+    {e:'🍳',t:'Rydd mens du lager mat — benkeplater og oppvask mens maten koker',s:'Reddit'},
+    {e:'🚿',t:'Tørk dusjen med et strykefjøl etter bruk — 2 min som hindrer kalk og mugg',s:'#CleanTok'},
+    {e:'🧹',t:'Rydd alltid ovenfra og ned i hvert rom — støvet faller, gulvet sist',s:'#CleanTok'},
+    {e:'🗑️',t:'Legg nye søppelposer i bunnen av søppelbøtta — alltid klar når du trenger',s:'#CleanTok'},
+  ]},
+  {cat:'Smarte triks',icon:'💡',items:[
+    {e:'🪣',t:'Gammel putevar over vifteblader: dra av og støvet samles inni trekket',s:'#CleanTok'},
+    {e:'🧤',t:'Gummihanske dradd langs sofaen samler dyrehår raskere enn lintrulle',s:'#CleanTok'},
+    {e:'🍋',t:'Sitron + salt på glassplaten: saltet skrubber, sitronen kutter fett',s:'#CleanTok'},
+    {e:'🫙',t:'Natron + eddik + kokende vann renser vasken effektivt uten kjemi',s:'#CleanTok'},
+    {e:'🪴',t:'Ha besøk jevnlig — sosial forpliktelse er den sterkeste ryddmotivasjonen',s:'Reddit'},
+    {e:'🔢',t:'«En inn, en ut»-regelen: ny gjenstand inn = gammel gjenstand ut',s:'Reddit'},
+  ]},
+  {cat:'System',icon:'🏗️',items:[
+    {e:'🏠',t:'Finn et fast sted for alt — ting uten hjem skaper alltid rot',s:'Reddit'},
+    {e:'🎯',t:'Start med én liten plass — én skuff, ikke hele kjøkkenet',s:'The Home Edit'},
+    {e:'🔄',t:'Rydding er en løpende vane, ikke en engangshendelse',s:'Reddit'},
+    {e:'📅',t:'Oppbevar ting der du faktisk bruker dem, ikke der det «burde» vært',s:'The Home Edit'},
+    {e:'👥',t:'Rydd alene — familie rundt deg skaper dårlig samvittighet og tregere tempo',s:'KonMari'},
+  ]},
+];
+(function(){let i=0;TIPS.forEach(c=>c.items.forEach(t=>{t.idx=i++;}));})();
+const TIPS_FLAT=TIPS.flatMap(c=>c.items.map(t=>Object.assign({},t,{cat:c.cat,catIcon:c.icon})));
+let tipFavs=JSON.parse(localStorage.getItem('hm_tipfavs')||'[]');
+let tipFilter='Alle';
+
+function renderTips(){
+  const cats=['Alle',...TIPS.map(c=>c.cat),'❤️ Favs'];
+  document.getElementById('tips-filter').innerHTML=cats.map(c=>
+    '<button class="chip'+(tipFilter===c?' a':'')+'" onclick="tipSetFilter(this)">'+c+'</button>'
+  ).join('');
+  const wrap=document.getElementById('tipswrap');
+  let html='';
+  if(tipFilter==='❤️ Favs'){
+    const favs=TIPS_FLAT.filter(t=>tipFavs.includes(t.idx));
+    if(!favs.length){wrap.innerHTML='<div style="padding:2rem 1rem;text-align:center;color:var(--ink3);font-size:var(--fs-sm)">Trykk ♥ på et tips for å lagre det her.</div>';return;}
+    html='<div class="tip-section"><div class="tip-cat-hdr"><span class="tip-cat-icon">❤️</span>Favoritttips</div>'+favs.map(tipCard).join('')+'</div>';
+  } else {
+    const filtered=tipFilter==='Alle'?TIPS:TIPS.filter(c=>c.cat===tipFilter);
+    filtered.forEach(cat=>{
+      html+='<div class="tip-section"><div class="tip-cat-hdr"><span class="tip-cat-icon">'+cat.icon+'</span>'+cat.cat+'</div>'+TIPS_FLAT.filter(t=>t.cat===cat.cat).map(tipCard).join('')+'</div>';
+    });
+  }
+  wrap.innerHTML=html;
+}
+function tipCard(t){
+  const fav=tipFavs.includes(t.idx);
+  return '<div class="tip-card'+(fav?' fav':'')+'"><span class="tip-emoji">'+t.e+'</span><div class="tip-body"><div class="tip-title">'+t.t+'</div><div class="tip-src">'+t.s+'</div></div><button class="tip-fav-btn'+(fav?' active':'')+'" onclick="tipToggleFav('+t.idx+')">♥</button></div>';
+}
+function tipSetFilter(btn){tipFilter=btn.textContent.trim();renderTips();}
+function tipToggleFav(idx){
+  const i=tipFavs.indexOf(idx);
+  if(i>-1)tipFavs.splice(i,1);else tipFavs.push(idx);
+  localStorage.setItem('hm_tipfavs',JSON.stringify(tipFavs));
+  renderTips();
 }
 </script>
 
