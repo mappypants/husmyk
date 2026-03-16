@@ -3,6 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Husmyk">
+<meta name="theme-color" content="#0F2626">
 <title>Husmyk</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -367,8 +372,24 @@ textarea.fi{width:100%;padding:0.45rem 0.75rem;border:1px solid var(--glass-b);b
 .sched-chk svg{width:9px;height:9px;stroke:#fff;fill:none;stroke-width:2.5;opacity:0}
 .sched-opt.sel .sched-chk svg{opacity:1}
 /* TOAST */
-.toast{position:absolute;bottom:4.5rem;left:50%;transform:translateX(-50%) translateY(12px);background:rgba(26,51,51,0.96);border:1px solid rgba(58,158,155,0.35);color:var(--ink);padding:0.48rem 1.1rem;border-radius:30px;font-size:12.5px;font-weight:700;opacity:0;transition:all 0.3s;z-index:300;white-space:nowrap;pointer-events:none;backdrop-filter:blur(10px)}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast{position:absolute;bottom:4.5rem;left:50%;transform:translateX(-50%) translateY(12px);background:rgba(26,51,51,0.96);border:1px solid rgba(58,158,155,0.35);color:var(--ink);padding:0.42rem 0.75rem 0.42rem 1rem;border-radius:30px;font-size:12.5px;font-weight:700;opacity:0;transition:all 0.3s;z-index:300;white-space:nowrap;pointer-events:none;backdrop-filter:blur(10px);display:flex;align-items:center;gap:0.55rem}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
+.toast-undo{background:var(--teal-mid);color:#fff;border:none;border-radius:20px;padding:0.22rem 0.65rem;font-size:11.5px;font-weight:800;cursor:pointer;flex-shrink:0}
+.toast-msg{flex:1}
+/* PWA INSTALL BANNER */
+.pwa-banner{position:absolute;bottom:4.5rem;left:0.85rem;right:0.85rem;background:linear-gradient(135deg,#1E4442,#112C2C);border:1px solid rgba(58,158,155,0.4);border-radius:var(--r-sm);padding:0.6rem 0.85rem;display:none;align-items:center;gap:0.65rem;z-index:290;box-shadow:0 4px 20px rgba(0,0,0,0.4);backdrop-filter:blur(12px)}
+.pwa-icon{font-size:1.5rem;flex-shrink:0}
+.pwa-text{flex:1}
+.pwa-title{font-size:12.5px;font-weight:800;color:var(--ink)}
+.pwa-sub{font-size:10.5px;color:var(--ink3);margin-top:1px}
+.pwa-btn{padding:0.38rem 0.9rem;background:var(--teal-mid);color:#fff;border:none;border-radius:20px;font-size:11.5px;font-weight:800;cursor:pointer;flex-shrink:0;box-shadow:var(--glow-teal)}
+.pwa-close{background:none;border:none;cursor:pointer;color:var(--ink3);font-size:0.9rem;padding:0.15rem;flex-shrink:0}
+body.light .pwa-banner{background:linear-gradient(135deg,#EEF8F6,#DCF0EC);border-color:rgba(45,125,123,0.3)}
+/* STREAK STAT */
+.sn-streak{font-size:var(--fs-xl);font-weight:900;color:var(--amber);line-height:1}
+/* STREAK MILESTONE ANIMATION */
+@keyframes streak-pop{0%{transform:scale(0.5);opacity:0}60%{transform:scale(1.25)}100%{transform:scale(1);opacity:1}}
+.streak-anim{animation:streak-pop 0.4s cubic-bezier(.34,1.56,.64,1)}
 /* COLOR SWATCHES */
 .col-swatch{cursor:pointer;transition:transform 0.15s}.col-swatch:hover{transform:scale(1.15)}
 .col-swatch.sel{outline:2.5px solid #fff;outline-offset:2px}
@@ -999,7 +1020,13 @@ body.light .notif-time{background:rgba(45,125,123,0.1);border-color:rgba(45,125,
 </div>
 </div>
 
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast"><span class="toast-msg" id="toast-msg"></span></div>
+<div class="pwa-banner" id="pwa-banner">
+  <span class="pwa-icon">🏠</span>
+  <div class="pwa-text"><div class="pwa-title">Installer Husmyk</div><div class="pwa-sub">Legg til på hjemskjermen for raskere tilgang</div></div>
+  <button class="pwa-btn" onclick="installPWA()">Installer</button>
+  <button class="pwa-close" onclick="dismissPWA()">✕</button>
+</div>
 </div>
 
 
@@ -1300,7 +1327,22 @@ function svgIcon(name,size,color){return getIcon(name,size,color);}
 function load(){try{const s=localStorage.getItem('hm6');if(s){const p=JSON.parse(s);S={...S,...p};if(!S.settings)S.settings={sound:true,density:'cozy',lang:'no',lightTheme:false};if(S.settings.lightTheme===undefined)S.settings.lightTheme=false;DAYS_NO.forEach(d=>{if(!S.schedule[d])S.schedule[d]=[];});}}catch(e){}}
 function save(){try{localStorage.setItem('hm6',JSON.stringify(S));}catch(e){}}
 function sv(id){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.getElementById(id).classList.add('active')}
-function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2100)}
+let _toastTimer=null;
+function toast(m){
+  const t=document.getElementById('toast');const msg=document.getElementById('toast-msg');
+  const ub=t.querySelector('.toast-undo');if(ub)ub.remove();
+  msg.textContent=m;t.classList.add('show');
+  clearTimeout(_toastTimer);_toastTimer=setTimeout(()=>t.classList.remove('show'),2200);
+}
+function toastUndo(m,fn){
+  const t=document.getElementById('toast');const msg=document.getElementById('toast-msg');
+  const old=t.querySelector('.toast-undo');if(old)old.remove();
+  msg.textContent=m;
+  const btn=document.createElement('button');btn.className='toast-undo';btn.textContent='Angre';
+  btn.onclick=()=>{clearTimeout(_toastTimer);t.classList.remove('show');fn();};
+  t.appendChild(btn);t.classList.add('show');
+  clearTimeout(_toastTimer);_toastTimer=setTimeout(()=>t.classList.remove('show'),5000);
+}
 function getDays(){return S.settings.lang==='en'?DAYS_EN:DAYS_NO}
 function applySettings(){
   const{density,lang}=S.settings;
@@ -1344,11 +1386,31 @@ function switchTab(t){
   clearSearch();
 }
 function renderApp(){renderStats();renderRooms();renderRoomSelect();renderFmRoomSelect();}
+function getStreak(){
+  const today=new Date().toISOString().slice(0,10);
+  const yesterday=new Date(Date.now()-86400000).toISOString().slice(0,10);
+  let st=JSON.parse(localStorage.getItem('hm_streak')||'{"last":"","count":0}');
+  if(st.last===today)return st.count;
+  if(st.last===yesterday){st.count++;}
+  else if(st.last!==today){st.count=1;}
+  st.last=today;
+  localStorage.setItem('hm_streak',JSON.stringify(st));
+  return st.count;
+}
 function renderStats(){
+  const streak=getStreak();
+  const milestones=[3,7,14,30,60,100];
+  const isMilestone=milestones.includes(streak);
   document.getElementById('sbar').innerHTML=`
   <div class="stat" onclick="openItemsOverlay()"><div class="sn">${S.items.length}</div><div class="sl">Ting</div></div>
   <div class="stat"><div class="sn">${S.rooms.length}</div><div class="sl">Rom</div></div>
-  <div class="stat"><div class="sn">${S.routines.length}</div><div class="sl">Rutiner</div></div>`;
+  <div class="stat"><div class="sn">${S.routines.length}</div><div class="sl">Rutiner</div></div>
+  <div class="stat" onclick="showStreakInfo(${streak})"><div class="sn-streak${isMilestone?' streak-anim':''}">${streak}</div><div class="sl">🔥 Streak</div></div>`;
+  if(isMilestone){const msgs={3:'3 dager på rad!',7:'En hel uke!',14:'To uker!',30:'En måned!',60:'To måneder!',100:'100 dager!'};setTimeout(()=>toast('🔥 '+msgs[streak]),400);}
+}
+function showStreakInfo(n){
+  const next=[3,7,14,30,60,100].find(m=>m>n)||n+1;
+  toast('🔥 '+n+' dag'+(n===1?'':'er')+' — neste mål: '+next+' dager');
 }
 function openItemsOverlay(){
   const c=document.getElementById('items-list-content');
@@ -1825,7 +1887,13 @@ function saveItemAnimated(btn){
   setTimeout(()=>{btn.style.background='';btn.textContent='Lagre';},1400);
 }
 
-function delItem(id){S.items=S.items.filter(i=>i.id!==id);save();renderApp();}
+function delItem(id){
+  const it=S.items.find(i=>i.id===id);
+  if(!it)return;
+  S.items=S.items.filter(i=>i.id!==id);
+  save();renderApp();
+  toastUndo('«'+it.name+'» slettet',()=>{S.items.unshift(it);save();renderApp();toast('Angret ✓');});
+}
 
 function doSearch(v){
   const r=document.getElementById('sr');const cl=document.getElementById('sc');cl.classList.toggle('v',v.length>0);
@@ -2283,10 +2351,34 @@ function playPling(){try{
   });
 }catch(e){}}
 
+// ── PWA SETUP ─────────────────────────────────────────────────
+let _deferredInstall=null;
+window.addEventListener('beforeinstallprompt',e=>{
+  e.preventDefault();_deferredInstall=e;
+  setTimeout(()=>{document.getElementById('pwa-banner').style.display='flex';},3000);
+});
+window.addEventListener('appinstalled',()=>{document.getElementById('pwa-banner').style.display='none';toast('Husmyk installert! 🏠');});
+function installPWA(){
+  if(!_deferredInstall)return;
+  _deferredInstall.prompt();
+  _deferredInstall.userChoice.then(()=>{_deferredInstall=null;document.getElementById('pwa-banner').style.display='none';});
+}
+function dismissPWA(){
+  document.getElementById('pwa-banner').style.display='none';
+  localStorage.setItem('hm_pwa_dismissed','1');
+}
+(function setupPWAManifest(){
+  const icon='data:image/svg+xml;base64,'+btoa('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="115" fill="#0F2626"/><path d="M256 110L100 266h52v156h76V316h56v106h76V266h52z" fill="#3A9E9B"/><rect x="222" y="328" width="68" height="94" rx="10" fill="#1A4040"/></svg>');
+  const m={name:'Husmyk',short_name:'Husmyk',description:'Have you seen my keys?',start_url:location.href,display:'standalone',background_color:'#0F2626',theme_color:'#0F2626',icons:[{src:icon,sizes:'512x512',type:'image/svg+xml'}]};
+  const l=document.createElement('link');l.rel='manifest';l.href='data:application/manifest+json,'+encodeURIComponent(JSON.stringify(m));document.head.appendChild(l);
+  const ai=document.createElement('link');ai.rel='apple-touch-icon';ai.href=icon;document.head.appendChild(ai);
+})();
+
 // INIT
 load();applySettings();
 if(S.rooms&&S.rooms.length){renderApp();sv('app');}else sv('ob');
 if(S.settings?.notif?.enabled)startNotifCheck();
+if(localStorage.getItem('hm_pwa_dismissed'))document.getElementById('pwa-banner').style.display='none';
 document.getElementById('cr-in').addEventListener('keydown',e=>{if(e.key==='Enter')addCR();});
 document.getElementById('iname').addEventListener('keydown',e=>{if(e.key==='Enter')saveItemAnimated(document.getElementById('item-save-btn'));});
 document.getElementById('iroom').addEventListener('change',function(){updateFurnSelect(this.value);});
