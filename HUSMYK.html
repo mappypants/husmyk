@@ -310,7 +310,8 @@ textarea.fi{width:100%;padding:0.45rem 0.75rem;border:1px solid var(--glass-b);b
 .co{position:absolute;inset:0;background:rgba(4,12,12,0.88);display:none;align-items:center;justify-content:center;z-index:250;backdrop-filter:blur(12px)}
 .co.open{display:flex}
 .ccard{background:linear-gradient(160deg,#1E4442,#112C2C);border:1px solid var(--glass-teal-b);border-radius:var(--r);padding:1.3rem 1.1rem;max-width:260px;width:90%;text-align:center;animation:su 0.3s ease;box-shadow:0 0 40px rgba(58,158,155,0.18)}
-.cpts{font-size:1.8rem;font-weight:900;color:var(--teal-mid);margin-bottom:0.12rem}
+.cpts{display:flex;align-items:center;justify-content:center;color:var(--teal-mid);margin-bottom:0.35rem}
+.cpts svg{width:36px;height:36px}
 .clbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--amber);margin-bottom:0.3rem}
 .ctit{font-size:var(--fs);font-weight:900;margin-bottom:0.22rem;color:var(--ink)}
 .csub{font-size:12.5px;color:var(--ink3);margin-bottom:1rem;line-height:1.5}
@@ -493,14 +494,11 @@ body.light .theme-toggle-btn::after{
   background:var(--teal-mid);
 }
 .theme-icon{
-  font-size:13px;position:absolute;
-  right:5px;top:50%;transform:translateY(-50%);
-  transition:opacity 0.2s;
-  pointer-events:none;line-height:1;
+  position:absolute;right:5px;top:50%;transform:translateY(-50%);
+  transition:opacity 0.2s;pointer-events:none;
+  display:flex;align-items:center;justify-content:center;width:16px;height:16px;
 }
-body.light .theme-icon{
-  left:5px;right:auto;
-}
+body.light .theme-icon{left:5px;right:auto;}
 
 /* ── ICON IMAGE FIXES ────────────────────────────────────────── */
 .ci img{width:100%;height:100%;object-fit:contain;display:block}
@@ -588,7 +586,7 @@ body.light .irow-edit{color:rgba(26,48,48,0.25)}
 .tip-body{flex:1;min-width:0}
 .tip-title{font-size:12.5px;font-weight:600;color:var(--ink);line-height:1.4;margin-bottom:0.12rem}
 .tip-src{font-size:9.5px;color:var(--ink3);font-weight:700;text-transform:uppercase;letter-spacing:0.05em}
-.tip-fav-btn{background:none;border:none;cursor:pointer;color:var(--ink3);font-size:1rem;padding:0.1rem 0.15rem;flex-shrink:0;line-height:1;transition:transform 0.15s,color 0.15s;-webkit-tap-highlight-color:transparent}
+.tip-fav-btn{background:none;border:none;cursor:pointer;color:var(--ink3);padding:0.15rem;flex-shrink:0;display:flex;align-items:center;transition:transform 0.15s,color 0.15s;-webkit-tap-highlight-color:transparent}
 .tip-fav-btn.active{color:var(--amber)}
 .tip-fav-btn:active{transform:scale(1.35)}
 body.light .tip-card{background:rgba(255,255,255,0.65);border-color:rgba(26,48,48,0.12)}
@@ -713,7 +711,7 @@ body.light .notif-time{background:rgba(45,125,123,0.1);border-color:rgba(45,125,
     <div class="tfs-bar"><div class="tfs-fill" id="tfs-fill" style="width:100%"></div></div>
     <div class="tfs-steps" id="tfs-steps"></div>
     <div class="tfs-done-overlay" id="tfs-done-overlay">
-      <div class="tfs-trophy">🎉</div>
+      <div class="tfs-trophy" style="display:flex;align-items:center;justify-content:center;color:var(--amber);margin-bottom:0.5rem"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
       <div class="tfs-done-title">Alle steg fullført!</div>
       <div class="tfs-done-sub" id="tfs-done-sub">Bra jobbet. Vil du avslutte rutinen?</div>
       <button class="tfs-done-btn" onclick="finishRoutineFromFS()">Fullfør og gå tilbake</button>
@@ -928,7 +926,7 @@ body.light .notif-time{background:rgba(45,125,123,0.1);border-color:rgba(45,125,
           <div class="sp-row-sub" id="theme-sub">Bytt til lyst tema</div>
         </div>
         <button class="theme-toggle-btn" id="theme-toggle" onclick="toggleTheme()">
-          <span class="theme-icon" id="theme-icon">🌙</span>
+          <span class="theme-icon" id="theme-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
         </button>
       </div>
       <div class="density-row">
@@ -979,7 +977,7 @@ body.light .notif-time{background:rgba(45,125,123,0.1);border-color:rgba(45,125,
 
 <!-- COMPLETE -->
 <div class="co" id="co"><div class="ccard">
-  <div class="cpts">✓</div><div class="clbl">fullført</div>
+  <div class="cpts"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div class="clbl">fullført</div>
   <div class="ctit" id="ctit">Rutine fullført</div>
   <div class="csub">Bra jobbet!</div>
   <button class="bp" onclick="document.getElementById('co').classList.remove('open')">Lukk</button>
@@ -1022,10 +1020,10 @@ body.light .notif-time{background:rgba(45,125,123,0.1);border-color:rgba(45,125,
 
 <div class="toast" id="toast"><span class="toast-msg" id="toast-msg"></span></div>
 <div class="pwa-banner" id="pwa-banner">
-  <span class="pwa-icon">🏠</span>
+  <span class="pwa-icon" style="color:var(--teal-mid);display:flex;align-items:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
   <div class="pwa-text"><div class="pwa-title">Installer Husmyk</div><div class="pwa-sub">Legg til på hjemskjermen for raskere tilgang</div></div>
   <button class="pwa-btn" onclick="installPWA()">Installer</button>
-  <button class="pwa-close" onclick="dismissPWA()">✕</button>
+  <button class="pwa-close" onclick="dismissPWA()" style="display:flex;align-items:center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
 </div>
 </div>
 
@@ -1187,6 +1185,22 @@ function getRoomIcon(room){
 
 function getFurnIcon(type){ return FURN_DEFAULT_ICONS[type]||'storage_box'; }
 
+
+// ── SVG UI ICON LIBRARY ───────────────────────────────────────
+const UI={
+  flame:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c0 6-6 8-6 13a6 6 0 0 0 12 0c0-5-6-7-6-13z"/><path d="M9 18.5c.4.9 1.4 1.5 3 1.5s2.6-.6 3-1.5"/></svg>',
+  bell:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>',
+  bellOff:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.73 21a2 2 0 0 1-3.46 0"/><path d="M18.63 13A17.89 17.89 0 0 1 18 8"/><path d="M6.26 6.26A5.86 5.86 0 0 0 6 8c0 7-3 9-3 9h14"/><path d="M18 8a6 6 0 0 0-9.33-5"/><line x1="1" y1="1" x2="23" y2="23"/></svg>',
+  heart:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>',
+  heartFill:'<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>',
+  star:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+  moon:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>',
+  sun:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>',
+  home:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
+  check:'<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',
+  x:'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>',
+  checkLg:'<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>',
+};
 
 const RDEF=[{name:'Stue',col:'#2D7D7B',icon:'living_room'},{name:'Kjøkken',col:'#E8A857',icon:'kitchen'},{name:'Gang',col:'#4A9B6F',icon:'hallway'},{name:'Kontor',col:'#3A9E9B',icon:'office'},{name:'Garasje',col:'#8B9E9E',icon:'garage_room'},{name:'Soverom',col:'#2D7D7B',icon:'bedroom'},{name:'Bad',col:'#3A9E9B',icon:'bathroom'},{name:'Barnerom',col:'#E8A857',icon:'kids_room'}];
 const PRESEL=new Set(['Stue','Kjøkken','Gang','Kontor','Garasje']);
@@ -1405,12 +1419,12 @@ function renderStats(){
   <div class="stat" onclick="openItemsOverlay()"><div class="sn">${S.items.length}</div><div class="sl">Ting</div></div>
   <div class="stat"><div class="sn">${S.rooms.length}</div><div class="sl">Rom</div></div>
   <div class="stat"><div class="sn">${S.routines.length}</div><div class="sl">Rutiner</div></div>
-  <div class="stat" onclick="showStreakInfo(${streak})"><div class="sn-streak${isMilestone?' streak-anim':''}">${streak}</div><div class="sl">🔥 Streak</div></div>`;
-  if(isMilestone){const msgs={3:'3 dager på rad!',7:'En hel uke!',14:'To uker!',30:'En måned!',60:'To måneder!',100:'100 dager!'};setTimeout(()=>toast('🔥 '+msgs[streak]),400);}
+  <div class="stat" onclick="showStreakInfo(${streak})"><div class="sn-streak${isMilestone?' streak-anim':''}">${streak}</div><div class="sl" style="display:flex;align-items:center;justify-content:center;gap:2px">${UI.flame}Streak</div></div>`;
+  if(isMilestone){const msgs={3:'3 dager på rad!',7:'En hel uke!',14:'To uker!',30:'En måned!',60:'To måneder!',100:'100 dager!'};setTimeout(()=>toast(msgs[streak]),400);}
 }
 function showStreakInfo(n){
   const next=[3,7,14,30,60,100].find(m=>m>n)||n+1;
-  toast('🔥 '+n+' dag'+(n===1?'':'er')+' — neste mål: '+next+' dager');
+  toast(n+' dag'+(n===1?'':'er')+' streak — neste mål: '+next);
 }
 function openItemsOverlay(){
   const c=document.getElementById('items-list-content');
@@ -2107,7 +2121,7 @@ function renderSchedule(){
   // Notifikasjonslinje
   const notif=S.settings.notif||{enabled:false,time:'07:30'};
   const notifHtml=`<div class="notif-row${notif.enabled?' on':''}" id="notif-row" onclick="toggleNotif(event)">
-    <span class="notif-icon">${notif.enabled?'🔔':'🔕'}</span>
+    <span class="notif-icon" style="display:flex;align-items:center;color:${notif.enabled?'var(--teal-mid)':'var(--ink3)'}">${notif.enabled?UI.bell:UI.bellOff}</span>
     <div class="notif-text">
       <div class="notif-label">Daglig påminnelse</div>
       <div class="notif-sub">${notif.enabled?'Aktiv – varsler når appen er åpen':'Trykk for å slå på'}</div>
@@ -2157,7 +2171,7 @@ function toggleNotif(e){
       S.settings.notif.enabled=(p==='granted');
       save();renderSchedule();
       if(p!=='granted')toast('Tilgang til varsler ble avslått');
-      else{toast('Påminnelse aktivert 🔔');startNotifCheck();}
+      else{toast('Påminnelse aktivert');startNotifCheck();}
     });
   } else {
     S.settings.notif.enabled=false;save();renderSchedule();toast('Påminnelse deaktivert');
@@ -2180,7 +2194,7 @@ function startNotifCheck(){
       const todayKey=DAYS_NO[todayIdx];
       const tasks=S.schedule[todayKey]||[];
       if(tasks.length&&Notification.permission==='granted'){
-        new Notification('HUSMYK 🏠',{body:'I dag: '+tasks.join(', ')+'. Klar til å starte?',icon:'',tag:'husmyk-daily'});
+        new Notification('Husmyk',{body:'I dag: '+tasks.join(', ')+'. Klar til å starte?',tag:'husmyk-daily'});
       }
     }
   },30000);
@@ -2331,7 +2345,7 @@ function updateThemeUI(){
   const icon=document.getElementById('theme-icon');
   if(lbl) lbl.textContent=light?'Lyst tema':'Mørkt tema';
   if(sub) sub.textContent=light?'Bytt til mørkt tema':'Bytt til lyst tema';
-  if(icon) icon.textContent=light?'☀️':'🌙';
+  if(icon) icon.innerHTML=light?UI.sun:UI.moon;
 }
 function setLang(l,btn){S.settings.lang=l;document.querySelectorAll('.l-opt').forEach(b=>b.classList.remove('a'));btn.classList.add('a');save();if(curTab==='schedule')renderSchedule();}
 function openAddMenu(){document.getElementById('add-menu').classList.add('open');}
@@ -2357,7 +2371,7 @@ window.addEventListener('beforeinstallprompt',e=>{
   e.preventDefault();_deferredInstall=e;
   setTimeout(()=>{document.getElementById('pwa-banner').style.display='flex';},3000);
 });
-window.addEventListener('appinstalled',()=>{document.getElementById('pwa-banner').style.display='none';toast('Husmyk installert! 🏠');});
+window.addEventListener('appinstalled',()=>{document.getElementById('pwa-banner').style.display='none';toast('Husmyk installert');});
 function installPWA(){
   if(!_deferredInstall)return;
   _deferredInstall.prompt();
@@ -2500,16 +2514,17 @@ let tipFavs=JSON.parse(localStorage.getItem('hm_tipfavs')||'[]');
 let tipFilter='Alle';
 
 function renderTips(){
-  const cats=['Alle',...TIPS.map(c=>c.cat),'❤️ Favs'];
-  document.getElementById('tips-filter').innerHTML=cats.map(c=>
-    '<button class="chip'+(tipFilter===c?' a':'')+'" onclick="tipSetFilter(this)">'+c+'</button>'
-  ).join('');
+  const cats=['Alle',...TIPS.map(c=>c.cat),'Favs'];
+  document.getElementById('tips-filter').innerHTML=cats.map(c=>{
+    const label=c==='Favs'?'<span style="display:flex;align-items:center;gap:3px">'+UI.heart+'Favs</span>':c;
+    return '<button class="chip'+(tipFilter===c?' a':'')+'" onclick="tipSetFilter(\''+c+'\')">'+label+'</button>';
+  }).join('');
   const wrap=document.getElementById('tipswrap');
   let html='';
-  if(tipFilter==='❤️ Favs'){
+  if(tipFilter==='Favs'){
     const favs=TIPS_FLAT.filter(t=>tipFavs.includes(t.idx));
-    if(!favs.length){wrap.innerHTML='<div style="padding:2rem 1rem;text-align:center;color:var(--ink3);font-size:var(--fs-sm)">Trykk ♥ på et tips for å lagre det her.</div>';return;}
-    html='<div class="tip-section"><div class="tip-cat-hdr"><span class="tip-cat-icon">❤️</span>Favoritttips</div>'+favs.map(tipCard).join('')+'</div>';
+    if(!favs.length){wrap.innerHTML='<div style="padding:2rem 1rem;text-align:center;color:var(--ink3);font-size:var(--fs-sm)">Trykk hjerte-ikonet på et tips for å lagre det her.</div>';return;}
+    html='<div class="tip-section"><div class="tip-cat-hdr"><span class="tip-cat-icon" style="color:var(--amber);display:flex;align-items:center">'+UI.heartFill+'</span>Favoritttips</div>'+favs.map(tipCard).join('')+'</div>';
   } else {
     const filtered=tipFilter==='Alle'?TIPS:TIPS.filter(c=>c.cat===tipFilter);
     filtered.forEach(cat=>{
@@ -2520,9 +2535,9 @@ function renderTips(){
 }
 function tipCard(t){
   const fav=tipFavs.includes(t.idx);
-  return '<div class="tip-card'+(fav?' fav':'')+'"><span class="tip-emoji">'+t.e+'</span><div class="tip-body"><div class="tip-title">'+t.t+'</div><div class="tip-src">'+t.s+'</div></div><button class="tip-fav-btn'+(fav?' active':'')+'" onclick="tipToggleFav('+t.idx+')">♥</button></div>';
+  return '<div class="tip-card'+(fav?' fav':'')+'"><span class="tip-emoji">'+t.e+'</span><div class="tip-body"><div class="tip-title">'+t.t+'</div><div class="tip-src">'+t.s+'</div></div><button class="tip-fav-btn'+(fav?' active':'')+'" onclick="tipToggleFav('+t.idx+')">'+(fav?UI.heartFill:UI.heart)+'</button></div>';
 }
-function tipSetFilter(btn){tipFilter=btn.textContent.trim();renderTips();}
+function tipSetFilter(f){tipFilter=f;renderTips();}
 function tipToggleFav(idx){
   const i=tipFavs.indexOf(idx);
   if(i>-1)tipFavs.splice(i,1);else tipFavs.push(idx);
