@@ -544,11 +544,12 @@ body.light .furn-item-row{border-bottom-color:rgba(26,48,48,0.07)}
 .swipe-row{position:relative;overflow:hidden;border-radius:var(--r-xs)}
 .swipe-row .furn-item-row{position:relative;z-index:1;will-change:transform;touch-action:pan-y;background:transparent}
 .swipe-row:last-child .furn-item-row{border-bottom:none}
-.swipe-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:flex-end;padding-right:1rem;background:var(--danger);border-radius:var(--r-xs)}
+.swipe-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:flex-end;gap:0.38rem;padding-right:1.1rem;background:linear-gradient(90deg,rgba(192,58,46,0.85),var(--danger));border-radius:var(--r-xs)}
 .swipe-bg-label{font-size:10px;font-weight:800;color:#fff;letter-spacing:0.06em;text-transform:uppercase}
 .irow-edit{background:none;border:none;cursor:pointer;color:rgba(255,255,255,0.28);font-size:0.78rem;padding:0.2rem 0.25rem;transition:color 0.15s}
 .irow-edit:hover{color:var(--teal-mid)}
 body.light .irow-edit{color:rgba(26,48,48,0.25)}
+.irow-right{display:flex;align-items:center;gap:0.3rem}
 
 /* ── CARD BODY OPEN ANIMATION ────────────────────────────────── */
 .card.open .cbody{animation:cbody-in 0.18s ease}
@@ -571,6 +572,35 @@ body.light .irow-edit{color:rgba(26,48,48,0.25)}
 .tip-fav-btn:active{transform:scale(1.35)}
 body.light .tip-card{background:rgba(255,255,255,0.65);border-color:rgba(26,48,48,0.12)}
 body.light .tip-card.fav{background:rgba(196,131,42,0.08);border-color:rgba(196,131,42,0.28)}
+
+/* ── UKE-FANE: FREMDRIFT + NOTIFIKASJONER ────────────────────── */
+.week-prog{background:var(--glass);border:1px solid var(--glass-b);border-radius:var(--r-sm);padding:0.58rem 0.75rem;margin-bottom:0.55rem;backdrop-filter:blur(8px)}
+.wp-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.38rem}
+.wp-label{font-size:10px;font-weight:800;color:var(--ink3);text-transform:uppercase;letter-spacing:0.08em}
+.wp-count{font-size:11px;font-weight:800;color:var(--teal-mid)}
+.wp-bar{height:5px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;margin-bottom:0.42rem}
+.wp-fill{height:100%;background:linear-gradient(90deg,var(--teal-mid),var(--teal-light));border-radius:3px;transition:width 0.6s cubic-bezier(.34,1.2,.64,1)}
+.wp-days{display:flex;justify-content:space-between}
+.wp-day{display:flex;flex-direction:column;align-items:center;gap:0.2rem}
+.wp-day-name{font-size:8.5px;font-weight:800;color:var(--ink3);text-transform:uppercase;letter-spacing:0.04em}
+.wp-day-dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,0.08);border:1.5px solid rgba(255,255,255,0.1);transition:all 0.25s}
+.wp-day-dot.has{background:var(--teal-mid);border-color:var(--teal-mid);box-shadow:0 0 5px rgba(58,158,155,0.5)}
+.wp-day-dot.today-dot{border-color:var(--amber);box-shadow:0 0 0 2px rgba(232,168,87,0.28)}
+.wp-day-dot.has.today-dot{background:var(--amber);border-color:var(--amber);box-shadow:0 0 6px rgba(232,168,87,0.55)}
+body.light .week-prog{background:rgba(255,255,255,0.65);border-color:rgba(26,48,48,0.12)}
+body.light .wp-bar{background:rgba(26,48,48,0.08)}
+body.light .wp-day-dot{background:rgba(26,48,48,0.08);border-color:rgba(26,48,48,0.14)}
+/* Notifikasjonslinje */
+.notif-row{display:flex;align-items:center;gap:0.55rem;padding:0.45rem 0.75rem;background:var(--glass);border:1px solid var(--glass-b);border-radius:var(--r-sm);margin-bottom:0.55rem;backdrop-filter:blur(8px);cursor:pointer;transition:background 0.15s}
+.notif-row:hover{background:rgba(255,255,255,0.1)}
+.notif-icon{font-size:1.05rem;flex-shrink:0}
+.notif-text{flex:1}
+.notif-label{font-size:12.5px;font-weight:700;color:var(--ink)}
+.notif-sub{font-size:10.5px;color:var(--ink3);margin-top:1px}
+.notif-time{padding:0.22rem 0.5rem;background:rgba(58,158,155,0.15);border:1px solid rgba(58,158,155,0.3);border-radius:20px;font-size:11.5px;font-weight:800;color:var(--teal-mid);outline:none;display:none;-webkit-appearance:none}
+.notif-row.on .notif-time{display:block}
+body.light .notif-row{background:rgba(255,255,255,0.65);border-color:rgba(26,48,48,0.12)}
+body.light .notif-time{background:rgba(45,125,123,0.1);border-color:rgba(45,125,123,0.25)}
 </style>
 </head>
 <body class="cozy">
@@ -1439,10 +1469,9 @@ function renderFurnsWithItems(furns,room,items){
   function itemRow(it){
     var loc=it.loc?'<span class="furn-item-loc">'+it.loc+'</span>':'';
     return '<div class="swipe-row" data-item-id="'+it.id+'">'
-      +'<div class="swipe-bg"><span class="swipe-bg-label">Slett</span></div>'
-      +'<div class="furn-item-row"><span class="furn-item-name">'+it.name+'</span>'+loc
-      +'<button class="irow-edit" title="Rediger" onclick="openEditItemOverlay(\''+it.id+'\')">✎</button>'
-      +'<button class="idel" title="Slett" onclick="delItem(\''+it.id+'\')">✕</button>'
+      +'<div class="swipe-bg"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg><span class="swipe-bg-label">Slett</span></div>'
+      +'<div class="furn-item-row"><span class="furn-item-name">'+it.name+'</span>'
+      +'<div class="irow-right">'+loc+'<button class="irow-edit" title="Rediger" onclick="openEditItemOverlay(\''+it.id+'\')">✎</button></div>'
       +'</div></div>';
   }
 
@@ -1996,7 +2025,29 @@ function delRoutine(i){if(confirm('Slett denne rutinen?')){S.routines.splice(i,1
 // SCHEDULE
 function renderSchedule(){
   const days=getDays();
-  document.getElementById('schedwrap').innerHTML=`<div style="color:var(--ink3);font-size:var(--fs-xs);margin-bottom:0.6rem;line-height:1.4">Velg rutiner per dag. Trykk på dagen for sjekkliste og nedtelling.</div><div class="week-grid">
+  // Ukens fremdrift
+  const todayIdx=(new Date().getDay()+6)%7; // 0=mandag
+  const daysWithTasks=DAYS_NO.map(d=>(S.schedule[d]||[]).length>0);
+  const totalWithTasks=daysWithTasks.filter(Boolean).length;
+  const pct=Math.round(totalWithTasks/7*100);
+  const dayAbbr=['Ma','Ti','On','To','Fr','Lø','Sø'];
+  const progHtml=`<div class="week-prog">
+    <div class="wp-top"><span class="wp-label">Ukens plan</span><span class="wp-count">${totalWithTasks}/7 dager</span></div>
+    <div class="wp-bar"><div class="wp-fill" style="width:${pct}%"></div></div>
+    <div class="wp-days">${dayAbbr.map((a,i)=>`<div class="wp-day"><span class="wp-day-name">${a}</span><div class="wp-day-dot${daysWithTasks[i]?' has':''}${i===todayIdx?' today-dot':''}"></div></div>`).join('')}</div>
+  </div>`;
+  // Notifikasjonslinje
+  const notif=S.settings.notif||{enabled:false,time:'07:30'};
+  const notifHtml=`<div class="notif-row${notif.enabled?' on':''}" id="notif-row" onclick="toggleNotif(event)">
+    <span class="notif-icon">${notif.enabled?'🔔':'🔕'}</span>
+    <div class="notif-text">
+      <div class="notif-label">Daglig påminnelse</div>
+      <div class="notif-sub">${notif.enabled?'Aktiv – varsler når appen er åpen':'Trykk for å slå på'}</div>
+    </div>
+    <input class="notif-time" type="time" value="${notif.time}" id="notif-time-inp" onclick="event.stopPropagation()" onchange="saveNotifTime(this.value)">
+    <div class="toggle${notif.enabled?' on':''}"></div>
+  </div>`;
+  document.getElementById('schedwrap').innerHTML=progHtml+notifHtml+`<div style="color:var(--ink3);font-size:var(--fs-xs);margin-bottom:0.5rem;line-height:1.4">Velg rutiner per dag. Trykk på dagen for sjekkliste og nedtelling.</div><div class="week-grid">
   ${days.map((d,di)=>{
     const key=DAYS_NO[di];const tasks=S.schedule[key]||[];
     const totalMins=tasks.reduce((acc,t)=>{const rt=S.routines.find(r=>r.name===t);return acc+(rt?rt.time:0);},0);
@@ -2026,6 +2077,45 @@ function renderScheduleKeepOpen(){
   renderSchedule();
   // Re-open them after render
   open.forEach(i=>{const el=document.getElementById('day-'+i);if(el)el.classList.add('open');});
+}
+
+// ── NOTIFIKASJONER ────────────────────────────────────────────
+function toggleNotif(e){
+  if(e.target.tagName==='INPUT')return;
+  if(!S.settings.notif)S.settings.notif={enabled:false,time:'07:30'};
+  const willEnable=!S.settings.notif.enabled;
+  if(willEnable&&'Notification' in window){
+    Notification.requestPermission().then(p=>{
+      S.settings.notif.enabled=(p==='granted');
+      save();renderSchedule();
+      if(p!=='granted')toast('Tilgang til varsler ble avslått');
+      else{toast('Påminnelse aktivert 🔔');startNotifCheck();}
+    });
+  } else {
+    S.settings.notif.enabled=false;save();renderSchedule();toast('Påminnelse deaktivert');
+  }
+}
+function saveNotifTime(val){
+  if(!S.settings.notif)S.settings.notif={enabled:true,time:'07:30'};
+  S.settings.notif.time=val;save();toast('Tidspunkt lagret: '+val);
+}
+let _notifSent='';
+function startNotifCheck(){
+  clearInterval(window._notifInt);
+  window._notifInt=setInterval(()=>{
+    const notif=S.settings.notif;
+    if(!notif||!notif.enabled)return;
+    const now=new Date();const hhmm=now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0');
+    if(hhmm===notif.time&&hhmm!==_notifSent){
+      _notifSent=hhmm;
+      const todayIdx=(new Date().getDay()+6)%7;
+      const todayKey=DAYS_NO[todayIdx];
+      const tasks=S.schedule[todayKey]||[];
+      if(tasks.length&&Notification.permission==='granted'){
+        new Notification('HUSMYK 🏠',{body:'I dag: '+tasks.join(', ')+'. Klar til å starte?',icon:'',tag:'husmyk-daily'});
+      }
+    }
+  },30000);
 }
 
 function toggleDayCheckItem(rtId,ci,di){
@@ -2196,6 +2286,7 @@ function playPling(){try{
 // INIT
 load();applySettings();
 if(S.rooms&&S.rooms.length){renderApp();sv('app');}else sv('ob');
+if(S.settings?.notif?.enabled)startNotifCheck();
 document.getElementById('cr-in').addEventListener('keydown',e=>{if(e.key==='Enter')addCR();});
 document.getElementById('iname').addEventListener('keydown',e=>{if(e.key==='Enter')saveItemAnimated(document.getElementById('item-save-btn'));});
 document.getElementById('iroom').addEventListener('change',function(){updateFurnSelect(this.value);});
@@ -2290,6 +2381,25 @@ const TIPS=[
     {e:'🔄',t:'Rydding er en løpende vane, ikke en engangshendelse',s:'Reddit'},
     {e:'📅',t:'Oppbevar ting der du faktisk bruker dem, ikke der det «burde» vært',s:'The Home Edit'},
     {e:'👥',t:'Rydd alene — familie rundt deg skaper dårlig samvittighet og tregere tempo',s:'KonMari'},
+    {e:'📋',t:'Lag en «venteliste»-kurv: ting du er usikker på. Har du ikke savnet dem etter 30 dager? Gi dem bort.',s:'Reddit'},
+    {e:'🧭',t:'Definer én overflate i hvert rom som alltid skal være tom — det hjelper deg å se rot raskere',s:'The Home Edit'},
+  ]},
+  {cat:'Bad & Kjøkken',icon:'🚿',items:[
+    {e:'🧴',t:'Gruppér badeprodukter etter bruker eller funksjon i klare bokser — lett å finne, lett å rengjøre',s:'The Home Edit'},
+    {e:'🪥',t:'Bytt tannbørste og rengjør tannbørsteholderen samtidig — sett det i kalenderen',s:'#CleanTok'},
+    {e:'🍽️',t:'Rydd av oppvaskmaskinen om morgenen — da kan den lastes løpende gjennom dagen',s:'Reddit'},
+    {e:'🫧',t:'Bruk en oppvaskkost med innebygget såpe — én hånd, halv tid',s:'#CleanTok'},
+    {e:'🧊',t:'Legg bakepapir i bunnen av kjøleskapshyllene — enklere å bytte enn å skrubbe',s:'#CleanTok'},
+    {e:'🍳',t:'Kjøkkenvifte og filter rengjøres best med kokende vann og natron — én gang i måneden',s:'#CleanTok'},
+    {e:'🪣',t:'Ha én rengjøringskurv per etasje med alle nødvendige produkter — spar tid på å bære',s:'The Home Edit'},
+  ]},
+  {cat:'Garderoben',icon:'👔',items:[
+    {e:'🔃',t:'Snu alle klesplaggene baklengs i starten av sesongen — det du ikke snur tilbake, donerer du',s:'Reddit'},
+    {e:'📦',t:'Sesongsklær i vakuumposer under sengen — frigjør plass og spar skap',s:'#CleanTok'},
+    {e:'🎨',t:'Sorter klær etter farge innenfor hver kategori — det tar 10 minutter og sparer tid hver dag',s:'The Home Edit'},
+    {e:'👟',t:'Ett par sko inn = ett par sko ut. Alltid.',s:'KonMari'},
+    {e:'🧲',t:'Velvetviskere forhindrer at klær glir av og dobler kapasiteten i skapet',s:'Reddit / TikTok'},
+    {e:'💡',t:'Hvis du trenger å prøve det på for å huske om du liker det — er det nok et tegn på at det bør gå',s:'KonMari'},
   ]},
 ];
 (function(){let i=0;TIPS.forEach(c=>c.items.forEach(t=>{t.idx=i++;}));})();
